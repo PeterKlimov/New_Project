@@ -5,6 +5,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import com.example.pk.new_project.data.VoteContract.GroupsEntry;
+import com.example.pk.new_project.data.VoteContract.QuestionsEntry;
 
 /**
  * Created by PK on 4/2/2015.
@@ -13,11 +15,27 @@ public class VoteProvider extends ContentProvider {
 
     private VoteDbHelper mOpenHelper;
 
-    private  static  final SQLiteQueryBuilder mVote
+    static private final String ACTIVE_QUESTION_COUNTER = "( SELECT group_id, COUNT(_id) AS num_of_questions " +
+                                                    "FROM questions " +
+                                                    "WHERE q_state=1 AND q_completed=0 " +
+                                                    "GROUP BY group_id )";
 
+    private  static  final SQLiteQueryBuilder sGroupsQueryBuilder;
 
+    static {
+        sGroupsQueryBuilder = new SQLiteQueryBuilder();
+        sGroupsQueryBuilder.setTables(
+                GroupsEntry.TABLE_NAME + " LEFT OUTER JOIN " + ACTIVE_QUESTION_COUNTER +
+                        " ON " + GroupsEntry.TABLE_NAME +
+                        "." + GroupsEntry._ID +
+                        "=" + QuestionsEntry.TABLE_NAME +
+                        "." + QuestionsEntry.COLUMN_Q_GROUP);
+    }
 
-
+    private Cursor getGroupsWithActiveQuestions(Uri uri, String[] projection, String sortOrder){
+        return sGroupsQueryBuilder.query(mOpenHelper.getReadableDatabase(),
+                projection)
+    }
 
     @Override
     public boolean onCreate() {
