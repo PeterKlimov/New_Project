@@ -34,12 +34,13 @@ public class VoteProvider extends ContentProvider {
 
     private Cursor getGroupsWithActiveQuestions(Uri uri, String[] projection, String sortOrder){
         return sGroupsQueryBuilder.query(mOpenHelper.getReadableDatabase(),
-                projection)
+                                            null, null, null, null, null, null);
     }
 
     @Override
     public boolean onCreate() {
-        return false;
+        mOpenHelper = new VoteDbHelper(getContext());
+        return true;
     }
 
     @Override
