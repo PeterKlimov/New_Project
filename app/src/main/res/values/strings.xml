@@ -2,4 +2,26 @@
     <string name="app_name">New_Project</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_logOut">Log out</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="signIn">Sign in</string>
+    <string name="signUp">Sign up</string>
+    <string name="error_intro">Error on login: </string>
+    <string name="error_blank_email">email field is empty!</string>
+    <string name="error_join">empty fields!</string>
+    <string name="error_blank_password">password field is empty!</string>
+    <string name="progress_login"><![CDATA[Logging you in&#8230;]]></string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="registration">Registration</string>
+    <string name="male">male</string>
+    <string name="female">female</string>
+    <string name="city">City</string>
+    <string name="phone">Phone</string>
+    <string name="street">Street</string>
+    <string name="street_number">Number</string>
+    <string name="submit">Submit</string>
+    <string name="intro">Missing required field:</string>
+    <string name="progress_signUp">Signing you up&#8230;</string>
 </resources>

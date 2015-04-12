@@ -1,5 +1,6 @@
 package com.example.pk.new_project;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -12,7 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
+import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -26,10 +30,9 @@ public class MainActivity extends ActionBarActivity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+
         Log.d("LOG", "parse");
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
+
 
 
     }
@@ -52,6 +55,13 @@ public class MainActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        if (id==R.id.action_logOut)
+        {
+            ParseUser.logOut();
+            Intent intent=new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            return  true;
         }
 
         return super.onOptionsItemSelected(item);
