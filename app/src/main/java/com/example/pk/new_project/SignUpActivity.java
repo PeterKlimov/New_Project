@@ -21,6 +21,7 @@ import com.parse.SignUpCallback;
 
 
 public class SignUpActivity extends ActionBarActivity implements View.OnClickListener {
+    private static final Integer FEMALE =0, MALE=1, UNCHECKED=-1 ;
     private EditText et_email, et_password, et_password2, et_f_name, et_l_name, et_phone, et_city, et_street, et_street_num;
     private Button btn_submit;
     private RadioButton rb_male, rb_female;
@@ -83,6 +84,12 @@ public class SignUpActivity extends ActionBarActivity implements View.OnClickLis
         String password2 = et_password2.getText().toString().trim();
         String first_name = et_f_name.getText().toString().trim();
         String last_name = et_l_name.getText().toString().trim();
+        Integer  sex;
+        if(rb_female.isChecked())
+            sex=FEMALE;
+        else if (rb_male.isChecked())
+            sex=MALE;
+        else sex=UNCHECKED;
         Toast.makeText(this, email + " " + password1 + " " + password2 + " " + first_name + " " + last_name, Toast.LENGTH_LONG).show();
         boolean validationError = false;
         StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.intro));
@@ -131,6 +138,10 @@ public class SignUpActivity extends ActionBarActivity implements View.OnClickLis
         ParseUser user = new ParseUser();
         user.setUsername(email);
         user.setPassword(password1);
+        user.put("FirstName",first_name );
+        user.put("LastName",last_name );
+        user.put("Sex", sex );
+        
 
         //Call the Parse sign up method
         user.signUpInBackground(new SignUpCallback() {
